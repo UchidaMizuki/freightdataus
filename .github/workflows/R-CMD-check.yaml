@@ -23,7 +23,9 @@ jobs:
     permissions:
       contents: read
 
-    timeout-minutes: 30
+    # R-devel has no binary packages, so its dependencies (such as duckdb) are
+    # built from source until they are cached.
+    timeout-minutes: ${{ matrix.config.r == 'devel' && 120 || 30 }}
 
     strategy:
       fail-fast: false
